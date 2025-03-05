@@ -1,0 +1,15 @@
+services:
+  pulsar:
+    image: apachepulsar/pulsar:3.0.8
+    container_name: pulsar
+    command: /pulsar/bin/pulsar standalone --config /pulsar/conf/standalone.conf
+    ports:
+      - "6650:6650"
+      - "8080:8080"
+    volumes:
+      - pulsar_data:/pulsar/data
+      - pulsar_logs:/pulsar/logs
+      - ./standalone.conf:/pulsar/conf/standalone.conf  # Monta o standalone.conf
+volumes:
+  pulsar_data:
+  pulsar_logs:
