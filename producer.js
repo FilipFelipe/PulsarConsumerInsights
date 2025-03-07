@@ -33,15 +33,15 @@ const client = require('./pulsar/pulsarClient');
         }
     } else {
         for (let i = 0; i < 300000; i++) {
-            const fixed = producer.send({
-                data: Buffer.from(`Mensagem ${i}`),
-                partitionKey: 'fixed-key',
-                properties: { aggregate: 'fixed-key' }
-            });
             const random = producer.send({
                 data: Buffer.from(`Mensagem ${i}`),
                 partitionKey: `key-${i}`,
                 properties: { aggregate: `key-${i}` }
+            });
+            const fixed = producer.send({
+                data: Buffer.from(`Mensagem ${i}`),
+                partitionKey: 'fixed-key',
+                properties: { aggregate: 'fixed-key' }
             });
             await Promise.all([fixed, random])
         }
